@@ -67,6 +67,9 @@
             input:focus{
                 border-color: #db5d5d;
             }
+            #error{
+                color: #db5d5d;
+            }
         </style>
     </head>
     <body>
@@ -75,10 +78,11 @@
             <img src="./img/3-2-batman-logo-png (2).png">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             <button id="login">Регистрация</button>
+            <div id="error"></div>
             <form id="form">
                 <input type="text" placeholder="Имя пользователя" id="user_name">
                 <input type="password" placeholder="Пароль" id="password">
-                <!--<input type="confirm_password" placeholder="Повторите пароль" id="confirm_password">-->
+                <input type="confirm_password" placeholder="Повторите пароль" id="confirm_password">
                 <input type="text" placeholder="Токен" id="token">
                 <button id="signup">Отправить</button>
             </form>
@@ -99,13 +103,18 @@
                 let login = document.getElementById("login").value;
                 let password = document.getElementById("password").value;
                 let token = document.getElementById("token").value;
+                let confirm_password = document.getElementById("confirm_password");
 
+                if (password != confirm_password){
+                    document.getElementById("error").innerText = "Пароли не совпадают";
+                    return;
+                }
                 let data = {
                     name: name,
                     password: password,
                     token: token
                 }
-                
+
                 tg.sendData(JSON.stringify(data));
 
                 tg.close();
